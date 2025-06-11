@@ -140,7 +140,6 @@ export const DemoPanel = () => {
                       enableDebugging={enableDebugging}
                       onSubmit={handleSubmit}
                       onUpdateDynamicProps={handleDynamicProps}
-                      errors={sdkErrors}
                     />
                   )}
                 </CustomizeProvider>

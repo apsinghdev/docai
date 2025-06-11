@@ -72,7 +72,7 @@ const useAppStateProviderValue = () => {
   }
 
   // Use useApp when we have a URL parameter, otherwise let SelectApp manage its own state
-  const { app: fetchedApp } = useApp(selectedAppSlug && userId ? selectedAppSlug : undefined)
+  const { app: fetchedApp } = useApp(selectedAppSlug && userId ? selectedAppSlug : "")
   const selectedApp = fetchedApp || undefined
 
   const selectedComponentType = queryParams.type || "action"

@@ -64,7 +64,7 @@ const PropertyItem = ({
     type,
     description,
     optional: required === false,
-    default: defaultValue,
+    default: defaultValue as string | number | boolean | null | undefined,
     min,
     max,
     secret,
@@ -75,7 +75,7 @@ const PropertyItem = ({
       <div className="flex items-center">
         <TooltipProvider delayDuration={0}>
           <Tooltip>
-            <TooltipTrigger asChild>
+            <TooltipTrigger>
               <label className="text-[13px] font-semibold text-neutral-500 border-b border-dotted border-neutral-300 cursor-help">
                 {name}
               </label>
@@ -230,7 +230,7 @@ export const ConfigPanel = () => {
         <div className="flex items-start pt-1.5">
           <TooltipProvider delayDuration={0}>
             <Tooltip>
-              <TooltipTrigger asChild>
+              <TooltipTrigger>
                 <label className="text-[13px] font-semibold text-neutral-500 border-b border-dotted border-neutral-300 cursor-help">
                   componentType
                 </label>
@@ -266,7 +266,7 @@ export const ConfigPanel = () => {
 
         <div className="flex items-start">
           <ComponentTypeSelector 
-            selectedType={selectedComponentType}
+            selectedType={selectedComponentType as "action" | "trigger"}
             onTypeChange={setSelectedComponentType}
           />
         </div>
@@ -277,7 +277,7 @@ export const ConfigPanel = () => {
         description="App to connect to"
         required={true}
       >
-        <CustomizeProvider customization={dropdownCustomization}>
+        <CustomizeProvider>
           <SelectApp
             value={selectedApp}
             onChange={(app) => {
@@ -294,10 +294,10 @@ export const ConfigPanel = () => {
         description={`${selectedComponentType === "action" ? "Action" : "Trigger"} to use`}
         required={true}
       >
-        <CustomizeProvider customization={dropdownCustomization}>
+        <CustomizeProvider>
           <SelectComponent
             app={selectedApp}
-            componentType={selectedComponentType}
+            componentType={selectedComponentType as "action" | "trigger" | undefined}
             value={selectedComponent}
             onChange={(comp) => {
               comp

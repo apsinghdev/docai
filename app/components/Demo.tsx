@@ -129,7 +129,7 @@ function TabsContainer({
       
       {isLoading ? (
         <>
-          <TabsContent value="config" className="m-0" forceMount>
+          <TabsContent value="config" className="m-0" forceMount as any>
             <div style={{ display: activeTab === "config" ? "block" : "none" }}>
               {isMobile ? (
                 <div className="flex flex-col">
@@ -158,7 +158,7 @@ function TabsContainer({
         </>
       ) : (
         <>
-          <TabsContent value="config" className="m-0" forceMount>
+          <TabsContent value="config" className="m-0" forceMount as any>
             <div style={{ display: activeTab === "config" ? "block" : "none" }}>
               {isMobile ? (
                 <div className="flex flex-col">
