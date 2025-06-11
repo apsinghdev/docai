@@ -1,6 +1,8 @@
 "use client"
 
 import { createContext, useContext, useCallback, ReactNode, useRef, useMemo, useSyncExternalStore } from "react"
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FrontendClient } from "@pipedream/sdk/browser"
 
 export interface SDKCall {
