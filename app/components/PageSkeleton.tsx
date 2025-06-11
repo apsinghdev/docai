@@ -25,7 +25,7 @@ export function PageSkeleton({
                 <div className={`flex-1 flex items-center rounded border px-3 py-1.5 text-sm ${isDark ? 'bg-zinc-700/80 border-zinc-600/60 shadow-[inset_0_1px_2px_rgba(255,255,255,0.02)]' : 'bg-zinc-50/80 border-zinc-200/60 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]'}`}>
                   <div className={`h-3 w-3 rounded-sm ${isDark ? 'bg-zinc-500' : 'bg-gray-200'}`} />
                   <div className={`ml-2 text-xs font-medium font-mono ${isDark ? 'text-zinc-300' : 'text-zinc-500'}`}>
-                    preview.myapp.com
+                    docai.com
                   </div>
                 </div>
               </div>

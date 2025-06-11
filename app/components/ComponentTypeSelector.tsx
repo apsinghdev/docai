@@ -12,13 +12,13 @@ const COMPONENT_TYPES = [
     value: "action", 
     label: "Action", 
     icon: IoCubeSharp,
-    description: "Perform read and write API operations"
+    description: ""
   },
   { 
-    value: "trigger", 
-    label: "Trigger", 
+    value: "", 
+    label: "", 
     icon: IoFlashOutline,
-    description: "React to events and webhooks"
+    description: ""
   },
 ] as const
 

@@ -53,7 +53,7 @@ const useAppStateProviderValue = () => {
     })
   }
 
-  const selectedAppSlug = queryParams.app || "google_sheets"
+  const selectedAppSlug = queryParams.app || "google_docs"
   const setSelectedAppSlug = (value: string) => {
     updateStateAsync(() => {
       setQueryParams([
@@ -81,7 +81,7 @@ const useAppStateProviderValue = () => {
 
   const [webhookUrl, setWebhookUrl] = useState<string>("")
 
-  const selectedComponentKey = queryParams.component || "google_sheets-add-single-row"
+  const selectedComponentKey = queryParams.component || "google_docs-get-document"
   const setSelectedComponentKey = (value: string) => {
     // Batch all state updates to prevent multiple configureComponent calls
     updateStateAsync(() => {

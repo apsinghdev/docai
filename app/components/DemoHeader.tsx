@@ -22,7 +22,7 @@ export function DemoHeader() {
         <PipedreamLogo className="text-neutral-600 h-[18px] w-auto" />
       </div>
       
-      <div className="hidden md:flex items-center gap-x-2">
+      {/* <div className="hidden md:flex items-center gap-x-2">
         <Button
           variant="outline"
           className="flex items-center gap-x-2 text-neutral-600 hover:text-neutral-800 border-neutral-200 hover:bg-neutral-50"
@@ -72,7 +72,7 @@ export function DemoHeader() {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-      </div>
+      </div> */}
     </div>
   )
 }

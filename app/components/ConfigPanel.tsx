@@ -183,7 +183,7 @@ export const ConfigPanel = () => {
   } = useAppState()
   const id1 = useId();
   const id2 = useId();
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  // const [showAdvanced, setShowAdvanced] = useState(false);
 
   const dropdownCustomization = {
     props: {
@@ -475,15 +475,15 @@ export const ConfigPanel = () => {
           {basicFormControls}
           
           {/* Desktop: Show with section header */}
-          <div className="hidden md:block mt-6">
+          {/* <div className="hidden md:block mt-6">
             <div className="border-t border-gray-200 pt-6">
               <h3 className="text-sm font-medium text-gray-700 mb-4">Additional Config Options</h3>
               {advancedFormControls}
             </div>
-          </div>
+          </div> */}
 
           {/* Mobile: Collapsible */}
-          <div className="md:hidden mt-4">
+          {/* <div className="md:hidden mt-4">
             <Collapsible open={showAdvanced} onOpenChange={setShowAdvanced}>
               <CollapsibleTrigger className="flex items-center justify-between w-full py-2 px-3 text-sm font-medium text-neutral-500 hover:text-neutral-600 hover:bg-neutral-25 rounded border border-neutral-150">
                 <div className="flex items-center gap-2">
@@ -497,7 +497,7 @@ export const ConfigPanel = () => {
                 {advancedFormControls}
               </CollapsibleContent>
             </Collapsible>
-          </div>
+          </div> */}
           
           {triggerInfo}
         </div>

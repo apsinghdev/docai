@@ -22,7 +22,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/connect/demo',
+        destination: '/',
         permanent: false,
         basePath: false
       }
