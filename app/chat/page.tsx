@@ -1,8 +1,9 @@
-export default function Page() {
+import Interface from "@/app/components/Interface";
 
+export default function Page() {
   return (
-    <h1>
-        chat here
-    </h1>
-  )
+    <div className="h-screen">
+      <Interface />
+    </div>
+  );
 }
