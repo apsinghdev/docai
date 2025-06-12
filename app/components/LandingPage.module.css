@@ -1,0 +1,255 @@
+.landingPage {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #f3e8ff, #e9d5ff, #d8b4fe);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backgroundEffects {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.gradientCircle1 {
+  position: absolute;
+  top: 25%;
+  left: 16.67%;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(to bottom right, rgba(192, 132, 252, 0.4), rgba(168, 85, 247, 0.3));
+  border-radius: 9999px;
+  filter: blur(48px);
+  opacity: 0.6;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.gradientCircle2 {
+  position: absolute;
+  bottom: 33.33%;
+  right: 20%;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(to top left, rgba(129, 140, 248, 0.35), rgba(168, 85, 247, 0.4));
+  border-radius: 9999px;
+  filter: blur(32px);
+  opacity: 0.7;
+  animation: pulse 4s ease-in-out infinite 2s;
+}
+
+.gradientCircle3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(to right, rgba(216, 180, 254, 0.3), rgba(165, 180, 252, 0.35));
+  border-radius: 9999px;
+  filter: blur(24px);
+  opacity: 0.5;
+  animation: pulse 4s ease-in-out infinite 4s;
+}
+
+.glassElement {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
+  animation: float 8s ease-in-out infinite;
+}
+
+.glassElement1 {
+  composes: glassElement;
+  top: 5rem;
+  left: 5rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 1.5rem;
+}
+
+.glassElement2 {
+  composes: glassElement;
+  bottom: 10rem;
+  right: 8rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1rem;
+  animation-delay: 2s;
+}
+
+.glassElement3 {
+  composes: glassElement;
+  top: 33.33%;
+  right: 4rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  animation-delay: 1s;
+}
+
+.glassElement4 {
+  composes: glassElement;
+  bottom: 25%;
+  left: 33.33%;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  animation-delay: 3s;
+}
+
+.mainContent {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.logo {
+  margin-bottom: 3rem;
+}
+
+.logoContainer {
+  width: 6rem;
+  height: 6rem;
+  background: linear-gradient(to bottom right, #9333ea, #7e22ce, #4338ca);
+  border-radius: 1.5rem;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: scale(1);
+  transition: transform 0.3s;
+}
+
+.logoContainer:hover {
+  transform: scale(1.05);
+}
+
+.logoInner {
+  width: 4rem;
+  height: 4rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  color: white;
+  font-weight: 300;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  font-size: 3.75rem;
+  font-weight: 300;
+  background: linear-gradient(to right, #1f2937, #7e22ce, #3730a3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.025em;
+}
+
+.description {
+  color: #374151;
+  font-size: 1.25rem;
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 32rem;
+  margin: 0 auto;
+  letter-spacing: 0.025em;
+}
+
+.startButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 4rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(to right, #9333ea, #7e22ce, #4338ca);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px -5px rgba(139, 69, 244, 0.3);
+  border: 1px solid rgba(139, 69, 244, 0.2);
+  transform: scale(1);
+  transition: all 0.5s;
+}
+
+.startButton:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px -5px rgba(139, 69, 244, 0.4);
+}
+
+.startButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, #a855f7, #9333ea, #4f46e5);
+  border-radius: 1rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.startButton:hover::before {
+  opacity: 1;
+}
+
+.startButton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.startButton:hover::after {
+  opacity: 1;
+}
+
+.buttonText {
+  position: relative;
+  z-index: 10;
+  letter-spacing: 0.025em;
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  25% { 
+    transform: translateY(-15px) translateX(5px) rotate(1deg); 
+  }
+  50% { 
+    transform: translateY(-8px) translateX(-3px) rotate(-0.5deg); 
+  }
+  75% { 
+    transform: translateY(5px) translateX(2px) rotate(0.5deg); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+} 
