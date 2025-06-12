@@ -1,23 +1,25 @@
-import { Metadata, ResolvingMetadata } from "next"
-import { Suspense } from "react"
-import { ClientWrapper } from "./components/ClientWrapper";
+"use client";
 
-export async function generateMetadata(
-  { searchParams: _searchParams }: {searchParams: unknown},
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+import { useRouter } from "next/navigation";
+import LandingPage from "./components/LandingPage";
+import { useEffect } from "react";
 
-  const title = (await parent).title?.absolute || ""
+export default function Home() {
+  const router = useRouter();
 
-  return {
-    title,
+  useEffect(() => {
+    console.log("Home page mounted");
+  }, []);
+
+  const handleStart = () => {
+    console.log("Starting navigation to /connect/doc");
+    router.push("/connect/doc");
   };
-}
 
-export default async function Home({searchParams: _searchParams}: {searchParams: unknown}) {
-  return (
-    <Suspense>
-      <ClientWrapper/>
-    </Suspense>
-  )
+  try {
+    return <LandingPage onStart={handleStart} />;
+  } catch (error) {
+    console.error("Error rendering LandingPage:", error);
+    return <div>Error loading page. Please check console for details.</div>;
+  }
 }
