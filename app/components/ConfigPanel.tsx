@@ -1,6 +1,6 @@
 "use client"
 
-import { useId, useState } from "react"
+import { useId } from "react"
 import { SelectApp, SelectComponent, CustomizeProvider } from "@pipedream/connect-react"
 import {
   Tooltip,
@@ -9,30 +9,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { BooleanToggle } from "./ui/boolean-toggle"
-import { ComponentTypeSelector } from "./ComponentTypeSelector"
+  ComponentTypeSelector } from "./ComponentTypeSelector"
 import { useAppState } from "@/lib/app-state"
-import { cn } from "@/lib/utils"
-import Select from "react-select"
-import { IoChevronDown, IoSettingsOutline } from "react-icons/io5"
-import type { ConfigurableProp } from "../../lib/types/pipedream"
 import type { CSSObjectWithLabel } from "react-select"
 import { getTypeDescription } from "../../lib/utils/type-descriptions"
 
-const typeBadgeStyles = {
-  string:
-    "text-[13px] font-mono bg-blue-50 text-blue-700 border-blue-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]",
-  boolean:
-    "text-[13px] font-mono bg-purple-50 text-purple-700 border-purple-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]",
-  array:
-    "text-[13px] font-mono bg-indigo-50 text-indigo-700 border-indigo-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]",
-  object:
-    "text-[13px] font-mono bg-cyan-50 text-cyan-700 border-cyan-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]",
-}
 
 interface PropertyItemProps {
   name: string
@@ -335,94 +316,6 @@ export const ConfigPanel = () => {
           value={userId || ""}
           className="w-full px-3 py-1.5 text-sm font-mono border rounded bg-zinc-50/50"
           readOnly
-        />
-      </PropertyItem>
-    </div>
-  )
-
-  const advancedFormControls = (
-    <div>
-      <PropertyItem
-        name="hideOptionalProps"
-        type="boolean"
-        description="Only show required form fields"
-        required={false}
-        defaultValue={false}
-      >
-        <BooleanToggle
-          value={hideOptionalProps}
-          onChange={setHideOptionalProps}
-          aria-label="Hide optional properties toggle"
-        />
-      </PropertyItem>
-      <PropertyItem
-          name="enableDebugging"
-          type="boolean"
-          description="Surface SDK and configuration errors in the form"
-          required={false}
-          defaultValue={false}
-      >
-        <BooleanToggle
-          value={enableDebugging}
-          onChange={setEnableDebugging}
-          aria-label="Enable debugging toggle"
-        />
-      </PropertyItem>
-
-      <PropertyItem
-        name="propNames"
-        type="string[]"
-        description="Filter which properties are displayed in the form"
-        required={false}
-      >
-        <Select
-          instanceId={id1}
-          options={[]}
-          isMulti={true}
-          value={propNames.map((name) => ({
-            label: name,
-            value: name,
-          }))}
-          onChange={(vs) => setPropNames(vs.map((v) => v.value))}
-          className="react-select-container text-sm"
-          classNamePrefix="react-select"
-          placeholder="Select properties to show..."
-          menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
-          styles={{
-            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-          }}
-          components={{
-            IndicatorSeparator: () => null,
-          }}
-        />
-      </PropertyItem>
-
-      <PropertyItem
-        name="customization"
-        type="CustomizationConfig"
-        description="Theme and styling configuration options"
-        required={false}
-      >
-        <Select
-          instanceId={id2}
-          options={customizationOptions}
-          value={customizationOption}
-          onChange={(v) => {
-            if (v) {
-              setCustomizationOption(v)
-            }
-          }}
-          getOptionValue={(o) => o.name}
-          className="react-select-container text-sm"
-          classNamePrefix="react-select"
-          placeholder="Choose a theme..."
-          menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
-          styles={{
-            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-          }}
-          components={{
-            IndicatorSeparator: () => null,
-          }}
         />
       </PropertyItem>
     </div>
