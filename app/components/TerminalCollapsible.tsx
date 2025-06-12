@@ -8,6 +8,18 @@ import { Terminal } from "./Terminal"
 import type { TerminalOutput } from "./Terminal"
 import { SectionHeader } from "./SectionHeader"
 import { cn } from "@/lib/utils"
+import { useEffect } from "react"
+
+interface DocumentContent {
+  textContent: string;
+}
+
+interface TerminalOutputWithContent extends TerminalOutput {
+  exports?: {
+    $summary: string;
+  };
+  ret?: DocumentContent;
+}
 
 interface TerminalCollapsibleProps {
   isOpen: boolean
@@ -26,6 +38,45 @@ export const TerminalCollapsible = ({
     if (!hasOutput) return "Waiting for submission..."
     return "Response received"
   }
+
+  useEffect(() => {
+    const processOutput = async () => {
+      if (output) {
+        const outputWithContent = output as TerminalOutputWithContent;
+        try {
+          // Only process if we have text content
+          if (outputWithContent.ret?.textContent) {
+            const res = await fetch("/api/process-docs", {
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ 
+                docs: [{
+                  text: outputWithContent.ret.textContent,
+                  metadata: { 
+                    source: outputWithContent.exports?.$summary || 'document',
+                    summary: outputWithContent.exports?.$summary
+                  } 
+                }]
+              })
+            });
+            
+            if (!res.ok) {
+              throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            
+            const result = await res.json();
+            console.log('Processing result:', result);
+          }
+        } catch (error) {
+          console.error('Error processing documents:', error);
+        }
+      }
+    };
+
+    processOutput();
+  }, [output]);
 
   return (
     <Collapsible open={isOpen} onOpenChange={onOpenChange} className="relative">
