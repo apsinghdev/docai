@@ -24,6 +24,13 @@ const Interface = () => {
     setIsLoading(true);
     setQuery("");
 
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      body: JSON.stringify({ query }),
+    });
+    const data = await res.json();
+    console.log(data);
+
     // Simulate API response
     setTimeout(() => {
       const botMessage: Message = {
@@ -74,15 +81,6 @@ const Interface = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className="flex items-center space-x-2">
-          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <Plus size={20} className="text-gray-600" />
-          </button>
-          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <Settings size={20} className="text-gray-600" />
-          </button>
-        </div> */}
       </header>
 
       {/* Main Content */}
@@ -150,13 +148,6 @@ const Interface = () => {
         <div className="p-6 border-t border-gray-200">
           <form onSubmit={handleSubmit} className="relative">
             <div className="flex items-center bg-gray-50 rounded-2xl border border-gray-200 focus-within:border-purple-500 focus-within:ring-2 focus-within:ring-purple-200 transition-all">
-              {/* <button
-                type="button"
-                className="p-3 text-gray-400 hover:text-purple-600 transition-colors"
-              >
-                <Plus size={20} />
-              </button> */}
-
               <input
                 type="text"
                 value={query}
@@ -167,12 +158,6 @@ const Interface = () => {
               />
 
               <div className="flex items-center space-x-2 pr-3">
-                {/* <button
-                  type="button"
-                  className="p-2 text-gray-400 hover:text-purple-600 transition-colors rounded-lg hover:bg-white"
-                >
-                  <Mic size={18} />
-                </button> */}
 
                 {query.trim() && (
                   <button

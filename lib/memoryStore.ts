@@ -11,13 +11,13 @@ type DocumentWithEmbedding = Document & {
   };
 };
 
-class MemoryVectorStore {
-  private static instance: MemoryVectorStore;
-  private documents: Map<string, DocumentWithEmbedding[]>; // Key: docId, Value: Chunks
+// Use a global variable to maintain state across requests
+let globalDocuments = new Map<string, DocumentWithEmbedding[]>();
 
-  private constructor() {
-    this.documents = new Map();
-  }
+export class MemoryVectorStore {
+  private static instance: MemoryVectorStore;
+
+  private constructor() {}
 
   static getInstance(): MemoryVectorStore {
     if (!MemoryVectorStore.instance) {
@@ -44,8 +44,9 @@ class MemoryVectorStore {
       },
     }));
 
-    this.documents.set(docId, docChunks);
-    console.log("docs stored successfully 🔥🚀");
+    console.log("docChunks", docChunks);
+    globalDocuments.set(docId, docChunks);
+    console.log("docs stored successfully 🔥🚀", globalDocuments);
   }
 
   // Semantic search across all documents
@@ -53,13 +54,19 @@ class MemoryVectorStore {
     queryEmbedding: Embedding,
     k: number = 4
   ): Promise<DocumentWithEmbedding[]> {
-    const allChunks = Array.from(this.documents.values()).flat();
+    console.log("documents", globalDocuments);
+
+    const allChunks = Array.from(globalDocuments.values()).flat();
+
+    console.log("allChunks", allChunks);
     
     // Calculate cosine similarity (optimized for memory)
     const scoredChunks = allChunks.map((chunk) => {
       const similarity = this.cosineSimilarity(queryEmbedding, chunk.embedding);
       return { ...chunk, score: similarity };
     });
+
+    console.log("scoredChunks", scoredChunks);
 
     // Return top-k most relevant chunks
     return scoredChunks
@@ -86,9 +93,9 @@ class MemoryVectorStore {
   // Optional cleanup of old documents
   cleanupOlderThan(maxAgeHours: number): void {
     const cutoff = Date.now() - maxAgeHours * 60 * 60 * 1000;
-    for (const [docId, chunks] of this.documents.entries()) {
+    for (const [docId, chunks] of globalDocuments.entries()) {
       if (chunks[0].metadata.timestamp < cutoff) {
-        this.documents.delete(docId);
+        globalDocuments.delete(docId);
       }
     }
   }
