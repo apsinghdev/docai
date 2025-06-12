@@ -9,6 +9,8 @@ import type { TerminalOutput } from "./Terminal"
 import { SectionHeader } from "./SectionHeader"
 import { cn } from "@/lib/utils"
 import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
 interface DocumentContent {
   textContent: string;
@@ -34,17 +36,18 @@ export const TerminalCollapsible = ({
   hasOutput,
   output,
 }: TerminalCollapsibleProps) => {
+  const router = useRouter();
+  
   const getStatusMessage = () => {
     if (!hasOutput) return "Waiting for submission..."
     return "Response received"
   }
-
+  
   useEffect(() => {
     const processOutput = async () => {
       if (output) {
         const outputWithContent = output as TerminalOutputWithContent;
         try {
-          // Only process if we have text content
           if (outputWithContent.ret?.textContent) {
             const res = await fetch("/api/process-docs", {
               method: "POST",
@@ -68,9 +71,12 @@ export const TerminalCollapsible = ({
             
             const result = await res.json();
             console.log('Processing result:', result);
+            toast.success("Your document has been processed");
+            router.push("/chat");
           }
         } catch (error) {
           console.error('Error processing documents:', error);
+          toast.error("Failed to process document");
         }
       }
     };

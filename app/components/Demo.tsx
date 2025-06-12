@@ -38,13 +38,6 @@ function HeroSection({ children }: { children: React.ReactNode }) {
         <h1 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-6">
           Pipedream Connect
         </h1>
-
-        {/* <div className="space-y-6 text-neutral-700">
-          <p className="text-xl sm:text-2xl font-medium text-neutral-800">
-            One SDK, thousands of API integrations for your app or AI agent
-          </p>
-          {children}
-        </div> */}
       </div>
     </div>
   );
@@ -177,12 +170,6 @@ function TabsContainer({
             </div>
           </TabsContent>
 
-          {/* <TabsContent value="code" className="m-0" forceMount>
-            <div style={{ display: activeTab === "code" ? "block" : "none" }}>
-              <LiveCodePanel />
-            </div>
-          </TabsContent> */}
-
           <TabsContent value="debug" className="m-0" forceMount>
             <div style={{ display: activeTab === "debug" ? "block" : "none" }}>
               <SDKDebugger />
@@ -247,18 +234,6 @@ export default function Demo({ isLoading = false }: { isLoading?: boolean }) {
 
       <div className="flex justify-center">
         <div className="flex gap-6 px-6 py-6">
-          {/* <div className="bg-white border border-neutral-200 rounded-lg shadow-sm overflow-hidden">
-            <TabsContainer
-              activeTab={activeTab}
-              onTabChange={setActiveTab}
-              callCount={callCount}
-              pendingCount={pendingCount}
-              tabsListClassName="justify-start px-4"
-              className="bg-gray-50/50"
-              isLoading={isLoading}
-            />
-          </div> */}
-
           {isLoading ? (
             <LoadingSkeleton withContainer />
           ) : (
