@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { Document } from "langchain/document";
 
-const STORAGE_DIR = path.join(process.cwd(), 'storage');
+const STORAGE_DIR = path.join('/tmp', 'storage');
 
 interface DocumentWithEmbedding extends Document {
   embedding: number[];
