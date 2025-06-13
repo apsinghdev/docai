@@ -7,6 +7,8 @@ import { createFrontendClient } from "@pipedream/sdk/browser"
 import { fetchToken } from "../actions/backendClient"
 import { SDKLoggerProvider, useSDKLogger, createLoggedFrontendClient } from "@/lib/sdk-logger"
 import Demo from "./Demo"
+import React, { Suspense } from "react"
+
 function DemoWithLoading({ isLoading }: { isLoading: boolean }) {
   return <Demo isLoading={isLoading} />
 }
@@ -27,9 +29,11 @@ const ClientProviderWithLogger = () => {
   return (
     <FrontendClientProvider client={client}>
       {client ? (
-        <AppStateProvider>
-          <DemoWithLoading isLoading={false} />
-        </AppStateProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <AppStateProvider>
+            <DemoWithLoading isLoading={false} />
+          </AppStateProvider>
+        </Suspense>
       ) : (
         <DemoWithLoading isLoading={true} />
       )}

@@ -7,10 +7,6 @@ import { useEffect } from "react";
 export default function Home() {
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("Home page mounted");
-  }, []);
-
   const handleStart = () => {
     console.log("Starting navigation to /connect/doc");
     router.push("/connect/doc");
