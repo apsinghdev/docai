@@ -62,23 +62,31 @@ The app will be available at [http://localhost:3000](http://localhost:3000)
 ### Architecture Diagram
 
 ```
-flowchart TD
-  A[User Interface (React/Next.js)]
-  B[API Routes (Next.js)]
-  C[LangChain RAG System]
-  D[LLMs (Gemini, GPT-4, Claude, ...)]
-  E[Embeddings (Cohere, etc.)]
-  F[File System Storage]
 
-  A-->|Chat/Upload|B
-  B-->|Process Query|C
-  C-->|Retrieve Context|F
-  C-->|Embed/Search|E
-  C-->|Call LLM|D
-  D-->|Response|C
-  C-->|Answer|B
-  B-->|Stream/Send|A
+User Interface (React/Next.js)
+           |
+           v
+  API Routes (Next.js)
+           |
+           v
+   LangChain RAG System
+   /        |         \
+  v         v          v
+File   Embeddings     LLMs
+System   (Cohere)   (GPT-4, etc.)
+Storage                |
+   \        |         /
+           v
+   LangChain RAG System
+           |
+           v
+  API Routes (Next.js)
+           |
+           v
+User Interface (React/Next.js)
+
 ```
+
 
 - **User Interface**: Users upload documents and chat with the AI.
 - **API Routes**: Handle requests, route to RAG logic or document processing.
