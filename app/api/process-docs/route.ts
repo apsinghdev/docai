@@ -11,8 +11,20 @@ export async function POST(request: NextRequest) {
     // process the doc and generate embeddings
     const {docId, chunks, sourceName} = await processDocument(docs[0].text)
 
+    // Convert chunks to DocumentWithEmbedding format
+    const formattedChunks = chunks.map((chunk, idx) => ({
+      pageContent: chunk.content,
+      embedding: chunk.embedding,
+      metadata: {
+        docId,
+        chunkIndex: idx,
+        sourceName,
+        timestamp: Date.now(),
+      },
+    }));
+
     // store the embeddings
-    await vectorStore.addDocuments(docId, chunks, sourceName)
+    await vectorStore.addDocuments(docId, formattedChunks)
 
     return NextResponse.json({
       success: true,
