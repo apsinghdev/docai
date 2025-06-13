@@ -28,30 +28,21 @@ docai is an AI-powered document Q&A and retrieval-augmented generation (RAG) sys
 
 #### 2. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/apsinghdev/docai.git
 cd docai
 ```
 
 #### 3. Install Dependencies
 ```bash
-npm install
-# or
-yarn install
+pnpm install
 ```
 
 #### 4. Environment Variables
-Create a `.env.local` file in the root directory and add the following:
-```env
-GOOGLE_API_KEY=your-google-api-key
-COHERE_API_KEY=your-cohere-api-key   # If using Cohere embeddings
-# Add other keys as needed
-```
+Create a `.env.local` file by running `cp .env.example .env.local` in the root directory and add the mentioned credentials.
 
 #### 5. Run the Development Server
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm dev
 ```
 
 The app will be available at [http://localhost:3000](http://localhost:3000)
@@ -63,6 +54,8 @@ The app will be available at [http://localhost:3000](http://localhost:3000)
 - `lib/` — Core logic for LLMs, embeddings, RAG, and storage
 - `app/api/` — Next.js API routes for chat and document processing
 - `components/` — React components for the frontend UI
+
+```
 
 ---
 
