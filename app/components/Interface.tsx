@@ -9,11 +9,11 @@ type Message = {
 
 const Interface = () => {
   const [query, setQuery] = useState("");
-  const [selectedModel, setSelectedModel] = useState("ChatGPT");
+  const [selectedModel, setSelectedModel] = useState("Gemini");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const models = ["ChatGPT", "GPT-4", "Claude", "Gemini"];
+  const models = ["GPT-4", "Claude", "Gemini"];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ const Interface = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
-      <header className="border-b border-gray-200 p-4 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 z-20 border-b border-gray-200 p-4 flex items-center justify-between bg-white bg-opacity-90 backdrop-blur-md">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-sm">AI</span>
@@ -83,10 +83,16 @@ const Interface = () => {
             </div>
           </div>
         </div>
+        <button
+          onClick={() => window.location.href = '/connect/doc'}
+          className="ml-4 px-3 py-1.5 border border-purple-600 text-purple-600 rounded-lg font-medium hover:bg-purple-50 transition-colors text-sm"
+        >
+          Choose another doc
+        </button>
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full">
+      <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full pt-20">
         {/* Messages Display */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {messages.length === 0 ? (
