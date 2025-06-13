@@ -43,15 +43,12 @@ export class MemoryVectorStore {
     k: number = 4
   ): Promise<DocumentWithEmbedding[]> {
     const allChunks = await fileStorage.getAllDocuments();
-    console.log("allChunks", allChunks);
     
     // Calculate cosine similarity (optimized for memory)
     const scoredChunks = allChunks.map((chunk) => {
       const similarity = this.cosineSimilarity(queryEmbedding, chunk.embedding);
       return { ...chunk, score: similarity };
     });
-
-    console.log("scoredChunks", scoredChunks);
 
     // Return top-k most relevant chunks
     return scoredChunks

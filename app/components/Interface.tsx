@@ -30,16 +30,18 @@ const Interface = () => {
     });
     const data = await res.json();
     console.log(data);
+    setIsLoading(false);
+    setMessages((prev) => [...prev, { type: "bot", content: data.message }]);
 
     // Simulate API response
-    setTimeout(() => {
-      const botMessage: Message = {
-        type: "bot",
-        content: `This is a simulated response from ${selectedModel}. You asked: "${userMessage.content}"`,
-      };
-      setMessages((prev) => [...prev, botMessage]);
-      setIsLoading(false);
-    }, 1500);
+    // setTimeout(() => {
+    //   const botMessage: Message = {
+    //     type: "bot",
+    //     content: `This is a simulated response from ${selectedModel}. You asked: "${userMessage.content}"`,
+    //   };
+    //   setMessages((prev) => [...prev, botMessage]);
+    //   setIsLoading(false);
+    // }, 1500);
   };
 
   return (

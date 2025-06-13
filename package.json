@@ -10,8 +10,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@langchain/anthropic": "^0.3.22",
     "@langchain/cohere": "^0.3.3",
-    "@langchain/core": "^0.3.57",
+    "@langchain/core": "^0.3.58",
+    "@langchain/google-genai": "^0.2.11",
     "@pipedream/connect-react": "^1.2.1",
     "@pipedream/sdk": "^1.6.8",
     "@radix-ui/react-collapsible": "^1.1.1",
