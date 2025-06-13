@@ -6,6 +6,8 @@ docai is an AI-powered document Q&A and retrieval-augmented generation (RAG) sys
 
 ---
 
+https://youtu.be/D0d6AMo8ImY
+
 ### Features
 - Connect and process documents using Google docs
 - Semantic search and context retrieval (RAG)
