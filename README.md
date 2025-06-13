@@ -4,6 +4,9 @@
 
 docai is an AI-powered document Q&A and retrieval-augmented generation (RAG) system. It allows users to upload documents, process them, and interact with them using state-of-the-art LLMs (Gemini, GPT-4, Claude, etc.) via a modern web interface.
 
+
+### Demo
+
 [![Watch the demo](https://img.youtube.com/vi/D0d6AMo8ImY/hqdefault.jpg)](https://youtu.be/D0d6AMo8ImY)
 
 ### Features
