@@ -1,16 +1,15 @@
 import { CohereEmbeddings } from "@langchain/cohere";
 import { Document } from "langchain/document";
-import { MemoryVectorStore } from "./memoryStore";
+import { vectorStore } from "./memoryStore";
 
 const embeddings = new CohereEmbeddings({
   apiKey: process.env.COHERE_API_KEY,
   model: "embed-english-v3.0"
 });
 
-const vectorStore = MemoryVectorStore.getInstance();
-
 export async function searchRelevantContext(query: string, topK = 3) {
     const queryEmbedding = await embeddings.embedQuery(query);
+    console.log("queryEmbedding", queryEmbedding);
   if (!vectorStore) throw new Error("Vector store not initialized");
 
   // 1. Generate query embedding
@@ -22,7 +21,7 @@ export async function searchRelevantContext(query: string, topK = 3) {
   console.log("Results:", results);
   
   // 3. Extract relevant context
-  const context = results.map((doc, i) => ({
+  const context = results.map((doc: Document, i: number) => ({
     rank: i + 1,
     content: doc.pageContent,
     metadata: doc.metadata,

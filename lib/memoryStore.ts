@@ -1,18 +1,11 @@
 import { Document } from "langchain/document";
+import { fileStorage } from "./fileStorage";
 
 type Embedding = number[];
-type DocumentWithEmbedding = Document & {
-  embedding: Embedding;
-  metadata: {
-    docId: string;
-    chunkIndex: number;
-    sourceName: string;
-    timestamp: number;
-  };
-};
 
-// Use a global variable to maintain state across requests
-let globalDocuments = new Map<string, DocumentWithEmbedding[]>();
+interface DocumentWithEmbedding extends Document {
+  embedding: number[];
+}
 
 export class MemoryVectorStore {
   private static instance: MemoryVectorStore;
@@ -29,24 +22,19 @@ export class MemoryVectorStore {
   // Add document chunks with embeddings
   async addDocuments(
     docId: string,
-    chunks: { content: string; embedding: Embedding }[],
-    sourceName: string
+    documents: DocumentWithEmbedding[]
   ): Promise<void> {
-    const timestamp = Date.now();
-    const docChunks = chunks.map((chunk, index) => ({
-      pageContent: chunk.content,
-      embedding: chunk.embedding,
+    const docChunks = documents.map((doc) => ({
+      ...doc,
       metadata: {
-        docId,
-        chunkIndex: index,
-        sourceName,
-        timestamp,
+        ...doc.metadata,
+        timestamp: Date.now(),
       },
     }));
 
     console.log("docChunks", docChunks);
-    globalDocuments.set(docId, docChunks);
-    console.log("docs stored successfully 🔥🚀", globalDocuments);
+    await fileStorage.saveDocuments(docId, docChunks);
+    console.log("docs stored successfully 🔥🚀");
   }
 
   // Semantic search across all documents
@@ -54,10 +42,7 @@ export class MemoryVectorStore {
     queryEmbedding: Embedding,
     k: number = 4
   ): Promise<DocumentWithEmbedding[]> {
-    console.log("documents", globalDocuments);
-
-    const allChunks = Array.from(globalDocuments.values()).flat();
-
+    const allChunks = await fileStorage.getAllDocuments();
     console.log("allChunks", allChunks);
     
     // Calculate cosine similarity (optimized for memory)
@@ -80,22 +65,35 @@ export class MemoryVectorStore {
     let dotProduct = 0;
     let normA = 0;
     let normB = 0;
-    
+
     for (let i = 0; i < a.length; i++) {
       dotProduct += a[i] * b[i];
       normA += a[i] * a[i];
       normB += b[i] * b[i];
     }
-    
+
     return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
   }
 
   // Optional cleanup of old documents
-  cleanupOlderThan(maxAgeHours: number): void {
+  async cleanupOlderThan(maxAgeHours: number): Promise<void> {
+    const allDocs = await fileStorage.getAllDocuments();
     const cutoff = Date.now() - maxAgeHours * 60 * 60 * 1000;
-    for (const [docId, chunks] of globalDocuments.entries()) {
-      if (chunks[0].metadata.timestamp < cutoff) {
-        globalDocuments.delete(docId);
+    
+    // Group documents by docId
+    const docsByDocId = new Map<string, DocumentWithEmbedding[]>();
+    for (const doc of allDocs) {
+      const docId = doc.metadata.docId as string;
+      if (!docsByDocId.has(docId)) {
+        docsByDocId.set(docId, []);
+      }
+      docsByDocId.get(docId)?.push(doc);
+    }
+
+    // Delete old documents
+    for (const [docId, docs] of docsByDocId.entries()) {
+      if (docs[0].metadata.timestamp < cutoff) {
+        await fileStorage.deleteDocuments(docId);
       }
     }
   }
